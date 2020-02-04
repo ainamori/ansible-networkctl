@@ -1,0 +1,8 @@
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+  roles:
+    - docker
+  vars:
+    docker_compose_ver: "1.18.0"
+  serial: 1

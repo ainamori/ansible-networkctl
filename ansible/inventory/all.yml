@@ -1,0 +1,31 @@
+all:
+  children:
+    cisco:
+      hosts:
+        Switch01:
+          ansible_host: 10.1.1.1
+      vars:
+        config_template: swDC.j2
+      children:
+        swGroup:
+          hosts:
+            Switch_gr01:
+              ansible_host: 10.1.10.1
+          vars:
+            config_template: swSite.j2
+      vars:
+        ansible_connection: network_cli
+        ansible_network_os: ios
+        ansible_user: username
+        ansible_password: password
+        ansible_become: 'yes'
+        ansible_become_method: enable
+        ansible_become_password: enable_password
+    fortigate:
+      hosts:
+        fortigate:
+          ansible_host: 10.1.20.1
+      vars:
+        ansible_connection: local
+        ansible_user: admin
+        ansible_password: fortipassword

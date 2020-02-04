@@ -1,0 +1,4 @@
+#
+- name: Save & Backup config
+  command: "scp {{ ansible_user }}@{{ ansible_host }}:sys_config ~/backup/{{ inventory_hostname }}.cfg"
+

@@ -1,0 +1,9 @@
+- hosts: cisco
+  roles:
+    - backup_ios_config
+
+- hosts: fortigate
+  gather_facts: no
+  roles:
+    - backup_fortios_config
+

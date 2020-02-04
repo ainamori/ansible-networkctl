@@ -1,0 +1,4 @@
+- hosts: cisco
+  roles:
+    - ios_config
+

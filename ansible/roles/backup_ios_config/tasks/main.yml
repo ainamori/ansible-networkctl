@@ -1,0 +1,9 @@
+#
+- name: Save & Backup config
+  ios_config:
+    save_when: modified
+    backup: yes
+    backup_options:
+      dir_path: ~/backup
+      filename : "{{ inventory_hostname }}.cfg"
+

@@ -1,0 +1,6 @@
+#
+- name: wait_for
+  wait_for: 
+    host: "{{ ansible_host }}"
+    port: 22
+    state: drained

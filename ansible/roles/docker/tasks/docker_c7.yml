@@ -1,0 +1,26 @@
+#
+- name: add docker repo
+  shell: "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo"
+  args:
+    chdir: "/etc/yum.repos.d"
+    creates: docker-ce.repo
+
+- name: install docker
+  yum: 
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - docker-ce
+  tags:
+    - prod
+  become: yes
+
+- name: Enable docker
+  systemd:
+    name: docker.service
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  tags:
+    - prod
+  become: yes

@@ -1,0 +1,4 @@
+#
+- name: net_ping
+  net_ping: 
+    dest: "{{ ansible_host }}"

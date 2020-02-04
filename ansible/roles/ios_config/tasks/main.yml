@@ -1,0 +1,32 @@
+#
+- name: load config
+  ios_config:
+    src: "{{ lookup('first_found', ios_cfg ) }}"
+  vars:
+    ios_cfg:
+      - "/template/{{ inventory_hostname }}.cfg"
+      - "/template/{{ config_template }}"
+
+- name: check the startup-config against the running-config
+  ios_config:
+    diff_against: startup
+    diff_ignore_lines:
+      - ntp clock .*
+
+- name: save running to startup when modified
+  ios_config:
+    save_when: modified
+    backup: yes
+    backup_options:
+      dir_path: ~/backup
+      filename : "{{ inventory_hostname }}.cfg"
+
+- name: check the running-config against master config
+  ios_config:
+    diff_against: intended
+    intended_config: "{{ lookup('first_found', ios_cfg ) }}"
+  vars:
+    ios_cfg:
+      - "/template/{{ inventory_hostname }}.cfg"
+      - "/template/{{ config_template }}"
+
